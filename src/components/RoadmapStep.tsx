@@ -15,7 +15,8 @@ import {
   Users,
   ChevronDown,
   ExternalLink,
-  Star
+  Star,
+  TrendingUp
 } from "lucide-react";
 import { useState } from "react";
 
@@ -25,8 +26,22 @@ interface RoadmapStepProps {
   // Removed onToggleComplete prop since we're removing the button
 }
 
+// Default values for item properties
+const defaultProps = {
+  prerequisites: [],
+  skills: [],
+  resources: [],
+  projects: [],
+  priority: 'Medium',
+  difficulty: 'Beginner',
+  category: 'Technical'
+};
+
 // Removed onToggleComplete from destructured props
 const RoadmapStep = ({ item, stepNumber }: RoadmapStepProps) => {
+  // Merge item with default props to ensure all properties exist
+  const safeItem = { ...defaultProps, ...item };
+  
   const [isExpanded, setIsExpanded] = useState(false);
 
   const getTypeIcon = (type: string) => {
@@ -38,6 +53,7 @@ const RoadmapStep = ({ item, stepNumber }: RoadmapStepProps) => {
       case "certification": return <Award {...iconProps} />;
       case "resource": return <FileText {...iconProps} />;
       case "experience": return <Users {...iconProps} />;
+      case "action": return <TrendingUp {...iconProps} />; // New icon for action items
       default: return <Target {...iconProps} />;
     }
   };
@@ -48,6 +64,7 @@ const RoadmapStep = ({ item, stepNumber }: RoadmapStepProps) => {
       case "High": return "bg-primary text-primary-foreground";
       case "Medium": return "bg-secondary text-secondary-foreground";
       case "Low": return "bg-muted text-muted-foreground";
+      case "Important": return "bg-yellow-500 text-yellow-900"; // New color for Important priority
       default: return "bg-muted text-muted-foreground";
     }
   };
@@ -88,40 +105,40 @@ const RoadmapStep = ({ item, stepNumber }: RoadmapStepProps) => {
             </div>
             <div>
               <CardTitle className="flex items-center gap-2">
-                {getTypeIcon(item.type)}
-                {item.title}
+                {getTypeIcon(safeItem.type)}
+                {safeItem.title}
               </CardTitle>
               <CardDescription className="mt-1 flex items-center gap-2">
                 <Clock className="h-3 w-3" />
-                {item.duration} • {item.estimatedHours}h • Phase {item.phase}
+                {safeItem.duration} • {safeItem.estimatedHours}h • Phase {safeItem.phase}
               </CardDescription>
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex gap-2">
-              <Badge className={getPriorityColor(item.priority)}>
-                {item.priority}
+              <Badge className={getPriorityColor(safeItem.priority)}>
+                {safeItem.priority}
               </Badge>
-              <Badge className={getDifficultyColor(item.difficulty)}>
-                {item.difficulty}
+              <Badge className={getDifficultyColor(safeItem.difficulty)}>
+                {safeItem.difficulty}
               </Badge>
             </div>
             <Badge variant="outline" className="flex items-center gap-1 text-xs">
-              {getCategoryIcon(item.category)}
-              {item.category}
+              {getCategoryIcon(safeItem.category)}
+              {safeItem.category}
             </Badge>
           </div>
         </div>
       </CardHeader>
       
       <CardContent>
-        <p className="text-muted-foreground mb-4">{item.description}</p>
+        <p className="text-muted-foreground mb-4">{safeItem.description}</p>
         
         {/* Skills */}
         <div className="mb-4">
           <div className="text-sm font-medium mb-2">Skills you'll develop:</div>
           <div className="flex flex-wrap gap-2">
-            {item.skills.map((skill) => (
+            {safeItem.skills && safeItem.skills.map((skill) => (
               <Badge key={skill} variant="secondary" className="text-xs">
                 {skill}
               </Badge>
@@ -130,11 +147,11 @@ const RoadmapStep = ({ item, stepNumber }: RoadmapStepProps) => {
         </div>
 
         {/* Prerequisites */}
-        {item.prerequisites.length > 0 && (
+        {safeItem.prerequisites && safeItem.prerequisites.length > 0 && (
           <div className="mb-4">
             <div className="text-sm font-medium mb-2">Prerequisites:</div>
             <div className="flex flex-wrap gap-2">
-              {item.prerequisites.map((prereq) => (
+              {safeItem.prerequisites.map((prereq) => (
                 <Badge key={prereq} variant="outline" className="text-xs">
                   {prereq}
                 </Badge>
@@ -148,7 +165,7 @@ const RoadmapStep = ({ item, stepNumber }: RoadmapStepProps) => {
           <CollapsibleTrigger asChild>
             <Button variant="ghost" className="w-full justify-between p-0 h-auto">
               <span className="text-sm font-medium">
-                Resources & Details ({item.resources.length + (item.projects?.length || 0)})
+                Resources & Details ({(safeItem.resources?.length || 0) + (safeItem.projects?.length || 0)})
               </span>
               <ChevronDown className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
             </Button>
@@ -156,11 +173,11 @@ const RoadmapStep = ({ item, stepNumber }: RoadmapStepProps) => {
           
           <CollapsibleContent className="mt-4 space-y-4">
             {/* Resources */}
-            {item.resources.length > 0 && (
+            {safeItem.resources && safeItem.resources.length > 0 && (
               <div>
                 <div className="text-sm font-medium mb-2">Learning Resources:</div>
                 <div className="space-y-2">
-                  {item.resources.map((resource, index) => (
+                  {safeItem.resources.map((resource, index) => (
                     <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
@@ -198,10 +215,10 @@ const RoadmapStep = ({ item, stepNumber }: RoadmapStepProps) => {
             )}
 
             {/* Project Details */}
-            {item.projects && item.projects.length > 0 && (
+            {safeItem.projects && safeItem.projects.length > 0 && (
               <div>
                 <div className="text-sm font-medium mb-2">Project Details:</div>
-                {item.projects.map((project, index) => (
+                {safeItem.projects.map((project, index) => (
                   <div key={index} className="p-4 bg-muted/50 rounded-lg space-y-3">
                     <div>
                       <h4 className="font-medium">{project.title}</h4>

@@ -1,0 +1,237 @@
+{
+  "phases": [
+    {
+      "id": 1,
+      "title": "Foundation Building",
+      "goal": "Establish core skills and knowledge required for your target role",
+      "focus": "Build a solid foundation in essential technologies and concepts",
+      "estimatedHours": 160,
+      "estimatedWeeks": 4,
+      "items": [
+        {
+          "id": "skill-1-0",
+          "title": "Master JavaScript Fundamentals",
+          "description": "Deepen your JavaScript knowledge with ES6+, async programming, closures, and modern patterns. Master debugging techniques and performance optimization.",
+          "type": "skill",
+          "priority": "Critical",
+          "difficulty": "Intermediate",
+          "duration": "4-6 weeks",
+          "estimatedHours": 80,
+          "prerequisites": ["Programming fundamentals"],
+          "skills": ["JavaScript"],
+          "completed": false,
+          "category": "Technical",
+          "resources": [
+            {
+              "title": "Eloquent JavaScript",
+              "type": "book",
+              "url": "https://eloquentjavascript.net/",
+              "cost": "Free",
+              "rating": 4.7,
+              "description": "Comprehensive introduction to JavaScript with practical exercises"
+            }
+          ],
+          "phase": 1
+        },
+        {
+          "id": "skill-1-1",
+          "title": "HTML/CSS Mastery",
+          "description": "Advance your frontend skills with modern CSS techniques, responsive design, accessibility, and performance optimization.",
+          "type": "skill",
+          "priority": "Critical",
+          "difficulty": "Intermediate",
+          "duration": "3-4 weeks",
+          "estimatedHours": 60,
+          "prerequisites": ["Basic HTML/CSS knowledge"],
+          "skills": ["HTML/CSS"],
+          "completed": false,
+          "category": "Technical",
+          "resources": [],
+          "phase": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Skill Development",
+      "goal": "Deepen expertise in key areas and build practical projects",
+      "focus": "Apply your foundational knowledge to real-world projects and advanced concepts",
+      "estimatedHours": 240,
+      "estimatedWeeks": 6,
+      "items": [
+        {
+          "id": "skill-2-0",
+          "title": "React Development",
+          "description": "Master React hooks, context, performance optimization, advanced patterns, and state management solutions. Learn testing strategies and best practices.",
+          "type": "skill",
+          "priority": "Critical",
+          "difficulty": "Advanced",
+          "duration": "6-8 weeks",
+          "estimatedHours": 120,
+          "prerequisites": ["JavaScript", "HTML/CSS"],
+          "skills": ["React"],
+          "completed": false,
+          "category": "Technical",
+          "resources": [
+            {
+              "title": "React Official Documentation",
+              "type": "documentation",
+              "url": "https://react.dev",
+              "platform": "React Team",
+              "cost": "Free",
+              "rating": 4.9,
+              "description": "Official React documentation with interactive examples and best practices"
+            }
+          ],
+          "phase": 2
+        },
+        {
+          "id": "project-2-0",
+          "title": "Build: Advanced E-commerce Platform",
+          "description": "Build a full-featured e-commerce platform with payment integration, inventory management, and admin dashboard. Implement advanced features like product recommendations, real-time inventory updates, and analytics.",
+          "type": "project",
+          "priority": "High",
+          "difficulty": "Complex",
+          "duration": "8-12 weeks",
+          "estimatedHours": 200,
+          "prerequisites": ["React", "TypeScript", "Redux Toolkit", "Stripe API", "Tailwind CSS"],
+          "skills": ["React", "TypeScript", "Redux Toolkit", "Stripe API", "Tailwind CSS"],
+          "completed": false,
+          "category": "Technical",
+          "resources": [],
+          "projects": [
+            {
+              "title": "Advanced E-commerce Platform",
+              "description": "Build a full-featured e-commerce platform with payment integration, inventory management, and admin dashboard. Implement advanced features like product recommendations, real-time inventory updates, and analytics.",
+              "techStack": ["React", "TypeScript", "Redux Toolkit", "Stripe API", "Tailwind CSS"],
+              "complexity": "Complex",
+              "features": [
+                "User authentication",
+                "Product catalog",
+                "Shopping cart",
+                "Payment processing",
+                "Order management",
+                "Admin panel",
+                "Product recommendations",
+                "Analytics dashboard"
+              ],
+              "learningOutcomes": [
+                "State management",
+                "API integration",
+                "Payment systems",
+                "Complex UI patterns",
+                "Real-time data",
+                "Performance optimization"
+              ],
+              "timeEstimate": "8-12 weeks"
+            }
+          ],
+          "phase": 2
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Advanced Mastery",
+      "goal": "Develop leadership capabilities and specialized knowledge",
+      "focus": "Master advanced concepts and develop leadership skills",
+      "estimatedHours": 200,
+      "estimatedWeeks": 5,
+      "items": [
+        {
+          "id": "skill-3-0",
+          "title": "System Design Mastery",
+          "description": "Design large-scale distributed systems, understand trade-offs, and architectural patterns. Learn to make critical technical decisions for complex systems.",
+          "type": "skill",
+          "priority": "Critical",
+          "difficulty": "Expert",
+          "duration": "12-16 weeks",
+          "estimatedHours": 160,
+          "prerequisites": ["Backend development", "Database design", "2+ years experience"],
+          "skills": ["System Design", "Architecture", "Scalability", "Decision Making"],
+          "completed": false,
+          "category": "Technical",
+          "resources": [
+            {
+              "title": "Designing Data-Intensive Applications",
+              "type": "book",
+              "cost": "Paid",
+              "rating": 4.8,
+              "description": "Essential book for understanding distributed systems and data architecture"
+            }
+          ],
+          "phase": 3
+        },
+        {
+          "id": "leadership-3-0",
+          "title": "Technical Leadership Training",
+          "description": "Develop skills in technical decision making, team leadership, and cross-functional collaboration. Learn to drive technical initiatives and mentor team members.",
+          "type": "course",
+          "priority": "Critical",
+          "difficulty": "Advanced",
+          "duration": "8-12 weeks",
+          "estimatedHours": 120,
+          "prerequisites": ["Technical expertise", "Communication skills", "2+ years of experience"],
+          "skills": ["Leadership", "Project Management", "Communication", "Decision Making"],
+          "completed": false,
+          "category": "Leadership",
+          "resources": [
+            {
+              "title": "Technical Leadership Masterclass",
+              "type": "course",
+              "platform": "Pluralsight",
+              "cost": "Subscription",
+              "rating": 4.5,
+              "description": "Developing technical leadership skills and team management strategies"
+            }
+          ],
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Real-World Application",
+      "goal": "Gain practical experience and establish industry presence",
+      "focus": "Apply your skills in real-world scenarios and build your professional presence",
+      "estimatedHours": 150,
+      "estimatedWeeks": 4,
+      "items": [
+        {
+          "id": "exp-4-0",
+          "title": "Build a Portfolio of Real Projects",
+          "description": "Create 2-3 substantial projects that demonstrate your skills in your target domain. Focus on solving real problems and showcasing your technical abilities.",
+          "type": "experience",
+          "priority": "High",
+          "difficulty": "Intermediate",
+          "duration": "Ongoing",
+          "estimatedHours": 150,
+          "prerequisites": ["Core domain skills", "Git", "Deployment experience"],
+          "skills": ["Project Development", "Problem Solving", "Portfolio Building"],
+          "completed": false,
+          "category": "Technical",
+          "resources": [],
+          "phase": 4
+        },
+        {
+          "id": "exp-4-1",
+          "title": "Technical Blog & Community Engagement",
+          "description": "Start writing technical blogs, contribute to open source projects, and engage with the developer community. Establish thought leadership in your domain.",
+          "type": "experience",
+          "priority": "Medium",
+          "difficulty": "Intermediate",
+          "duration": "Ongoing",
+          "estimatedHours": 100,
+          "prerequisites": ["Domain expertise", "Communication skills"],
+          "skills": ["Communication", "Technical Writing", "Community Engagement", "Open Source"],
+          "completed": false,
+          "category": "Soft Skills",
+          "resources": [],
+          "phase": 4
+        }
+      ]
+    }
+  ],
+  "totalEstimatedHours": 750,
+  "totalEstimatedWeeks": 19
+}

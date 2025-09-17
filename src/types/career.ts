@@ -15,8 +15,8 @@ export interface RoadmapItem {
   id: string;
   title: string;
   description: string;
-  type: 'skill' | 'project' | 'course' | 'certification' | 'resource' | 'experience';
-  priority: 'Critical' | 'High' | 'Medium' | 'Low';
+  type: 'skill' | 'project' | 'course' | 'certification' | 'resource' | 'experience' | 'action';
+  priority: 'Critical' | 'High' | 'Medium' | 'Low' | 'Important';
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
   duration: string;
   estimatedHours: number;

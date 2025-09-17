@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CheckCircle, Target, TrendingUp, Brain, Sparkles, Plus, Trash2 } from "lucide-react";
 import { CurrentProfile, TargetRole, RoadmapItem, SkillGap } from "@/types/career";
-import { RoadmapGenerator } from "@/utils/roadmapGenerator";
+import { RoadmapService } from "@/services/roadmapService";
 import { jobTitles } from "@/data/careerPaths";
 import RoadmapStep from "@/components/RoadmapStep";
 import SkillGapAnalysis from "@/components/SkillGapAnalysis";
@@ -63,9 +63,7 @@ const CareerPathMapper = () => {
     }
 
     setIsGenerating(true);
-    
-    // Simulate AI processing time
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    setAiPrompt(""); // Clear any previous prompt
     
     try {
       // Convert skill experiences to comma-separated string for the generator
@@ -87,20 +85,44 @@ const CareerPathMapper = () => {
         domain: targetDomain
       };
 
-      const generator = new RoadmapGenerator(currentProfile, target);
+      // Call the real API
+      const response = await RoadmapService.fetchRoadmap(
+        currentProfile, 
+        target, 
+        careerGoals, 
+        learningStyle, 
+        timeCommitment
+      );
       
-      // Generate the AI prompt
-      const prompt = generator.generateAIPrompt();
-      setAiPrompt(prompt);
+      console.log("Roadmap API response:", response);
       
-      // Generate the roadmap
-      const generatedRoadmap = generator.generateRoadmap();
-      const gaps = generator.analyzeSkillGaps();
-      
-      setRoadmap(generatedRoadmap);
-      setSkillGaps(gaps);
+      if (response.success && response.data) {
+        console.log("Roadmap data received:", response.data);
+        // Check if phases exist and have items
+        if (response.data.phases && Array.isArray(response.data.phases)) {
+          console.log("Phases:", response.data.phases);
+          // Flatten the phases into a single array of items
+          const allItems = response.data.phases.flatMap(phase => {
+            console.log("Processing phase:", phase);
+            // Ensure phase has items array
+            return (phase.items && Array.isArray(phase.items)) ? phase.items : [];
+          });
+          console.log("Flattened items:", allItems);
+          // Filter out any undefined items
+          const validItems = allItems.filter(item => item !== undefined);
+          setRoadmap(validItems);
+        } else {
+          console.error("Invalid roadmap data structure:", response.data);
+          alert("Received invalid roadmap data structure from API");
+        }
+      } else {
+        console.error("Failed to fetch roadmap:", response.error);
+        // Show error to user
+        alert("Failed to generate roadmap: " + response.error);
+      }
     } catch (error) {
       console.error('Error generating roadmap:', error);
+      alert("An error occurred while generating your roadmap. Please try again.");
     } finally {
       setIsGenerating(false);
     }
@@ -391,29 +413,6 @@ const CareerPathMapper = () => {
             </Button>
           </CardContent>
         </Card>
-
-        {/* AI Prompt Display */}
-        {aiPrompt && (
-          <Card className="max-w-4xl mx-auto mb-8 shadow-card border-0 bg-white/95 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Brain className="h-5 w-5 text-primary" />
-                AI Prompt for Roadmap Generation
-              </CardTitle>
-              <CardDescription>
-                This is the prompt that would be sent to an AI model to generate your personalized roadmap
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="bg-muted p-4 rounded-lg">
-                <pre className="text-sm whitespace-pre-wrap">{aiPrompt}</pre>
-              </div>
-              <p className="text-sm text-muted-foreground mt-2">
-                You can copy this prompt and use it with any AI model to get a more detailed, customized roadmap.
-              </p>
-            </CardContent>
-          </Card>
-        )}
 
         {/* Skill Gap Analysis */}
         {skillGaps.length > 0 && (
